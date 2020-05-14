@@ -31,7 +31,7 @@ $.post("https://pageviewcounter.000webhostapp.com/mdtohtml/",
           val: $('#input').val(),
         },
         function(data, status){
-	      document.getElementById("output").innerHTML = data;
+	  document.getElementById("output").innerHTML = data;
           mermaid.init();
           renderMathInElement(document.body);
           document.getElementById("htmlOutput").innerHTML = document.getElementById("output").innerHTML;
