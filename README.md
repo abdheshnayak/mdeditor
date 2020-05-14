@@ -17,12 +17,6 @@ This is a editor and designer for the markdown file and also it converts markdow
 ## LICENSE
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](https://github.com/abdheshnayak/mdeditor/blob/master/LICENSE) file for details
-
-## Authors
->**Abdhesh Nayak**
-
-[![Icon](https://img.shields.io/badge/Github-lightgrey)](https://github.com/abdheshnayak) [![Icon](https://img.shields.io/badge/LinkedIn-blue)](https://www.linkedin.com/in/abdhesh-nayak/)
-
 ## Render MD To HTML
 This is how you can get your markdown text to html code.
 ```
@@ -36,5 +30,10 @@ $.post("https://pageviewcounter.000webhostapp.com/mdtohtml/",
           // document.getElementById("htmlOutput").innerHTML = document.getElementById("output").innerHTML;
         });
 ```
+## Authors
+>**Abdhesh Nayak**
+
+[![Icon](https://img.shields.io/badge/Github-lightgrey)](https://github.com/abdheshnayak) [![Icon](https://img.shields.io/badge/LinkedIn-blue)](https://www.linkedin.com/in/abdhesh-nayak/)
+
 
 **See also the list of [Contributors](https://github.com/abdheshnayak/mdeditor/contributors) who participated in this project.**
