@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>md editor</title>
+    <meta name=viewport content="width=device-width" scale=1.0>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv=content-type content="text/html; charset=utf-8">
+    <link rel=icon href=/src/logo.png type="image/icon type">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="./katex/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+
+    <script defer src="./katex/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+
+    <script defer src="./katex/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
+
+    <script type="text/javascript" src="https://unpkg.com/mermaid@7.1.0/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="https://kamla.com.np/css/readme.css" />
+    <style media="screen">
+      .an-bd{
+        position: relative;
+        width: 100%;
+        padding-left: 0em;
+        padding-right: 0em;
+      }
+
+      .cards{
+        padding-top: 0.5em;
+        padding-bottom: 1em;
+        width: 100%;
+        min-height: 10em;
+      }
+      .cards p{
+        text-align: justify;
+        color:  #0a183d;
+      }
+      .cards a{
+        transition: box-shadow 0.2s ease,background 0.5s ease;
+        display: block;
+        width: 85%;
+        text-decoration: none;
+        color:  #0a183d;
+        margin: 1em auto;
+        background:#f8f9fa;
+        border-radius: 0.5em;
+        min-height: 5em;
+        margin-bottom: 0.4em;
+        padding: 1em;
+        box-shadow: 0.25em 0.25em 0.25em 0.25em #0a183d;
+      }
+      .cards a:hover{
+        background: #f8c9f8;
+        box-shadow: 0.15em 0.15em 0.15em 0.15em  #0a183d;
+      }
+      .cards a:active{
+        background: pink;
+      }
+      .cards h2{
+        padding-bottom: 0.2em;
+      }
+
+      .devide{
+        position: relative;
+        width: 46%;
+        min-width: 23em;
+        height: 90%;
+        margin: 0;
+        padding:2%;
+        border: 0.05em solid pink;
+        box-shadow:  0.051em 0.051em 0.051em 0.051em pink;
+      }
+      #editor .left{
+        font-size: 1em;
+        left: 0;
+        /* background: rgba(255,0,255,0.5); */
+      }
+      #editor .right{
+        overflow-y: scroll;
+        right: 0;
+        /* background: rgba(255,255,0,0.5); */
+      }
+      #editor{
+        overflow-x: scroll;
+        background: #f8f9fa;
+        position: relative;
+        display: inline-flex;
+        width: 100%;
+        height: 90vh;
+        margin: 0em;
+        /* background: rgba(0,255,255,0.5); */
+      }
+      #execute{
+        cursor: pointer;
+        border-radius: 0.2em;
+        font-size: 0.75em;
+        z-index: 1;
+        float: left;
+        box-shadow:  0.051em 0.051em 0.051em 0.051em pink;
+        margin: 0.5em;
+        padding: 0.5em;
+        color: white;
+        outline: none;
+        border: none;
+        background: #0a183d;
+      }
+      #livecb{
+        display: inline-flex;
+        margin-right: 0.4em;
+        font-size: 1em;
+      }
+
+      .htmlOutputContainer{
+        display: none;
+        z-index: 4;
+        margin-top: -2em;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(100,100,100,0.6);
+      }
+      .htmlOutputbox{
+        box-shadow: 0.1em 0.1em 0.1em 0.1em grey;
+        border-radius: 0.3em;
+        background: #0a183d;
+        display: block;
+        left: 50%;
+        top: 50%;
+        margin-top: -14em;
+        margin-left: -10em;
+        position: relative;
+        width: 20em;
+        height: 24em;
+      }
+      .htmlOutputbox p{
+        display: inline-flex;
+        /* position: absolute; */
+        padding: 0.8em;
+        padding-top: 0em;
+        margin-top: 0.8em;
+        color: white;
+        font-size: 1.2em;
+      }
+      .htmlOutputbox button{
+        position: relative;
+        display: inline-flex;
+        /* margin-left: em; */
+        padding: 0.3em;
+        margin: 0.2em;
+        cursor: pointer;
+        background:white;
+        box-shadow: 0.05em 0.05em 0.05em 0.05em brown;
+        border-radius: 0.3em;
+      }
+      #htmlOutput{
+        position: absolute;
+        display: inline-block;
+        width: 18em;
+        box-shadow: 0.1em 0.1em 0.1em 0.1em white;
+        border: none;
+        overflow-y: scroll;
+        border-radius: 0.3em;
+        height: 20em;
+        left: 50%;
+        top: 50%;
+        margin-top: -9em;
+        margin-left: -9.1em;
+      }
+
+      @media only screen and (min-width: 70em){
+          .cards a{
+            display: inline-flex;
+            max-width: 27em;
+            margin: 0.5em;
+            height: 8.5em;
+          }
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- body Contents -->
+    <script type="text/javascript">
+
+    function clearinput() {
+      document.getElementById("input").innerHTML = "";
+      updateOutput();
+    }
+
+    function copyToClipboard(element) {
+      var $temp = $("<input>");
+      $("body").append($temp);
+      $temp.val($(element).text()).select();
+      document.execCommand("copy");
+      $temp.remove();
+    }
+
+    function converinput(){
+      $('.htmlOutputContainer').fadeIn('swing');
+      $.post("https://kamla.com.np/app/mdtohtml/",
+        {
+          val: $('#input').val(),
+        },
+        function(data, status){
+          document.getElementById("output").innerHTML = data;
+          mermaid.init();
+          renderMathInElement(document.body);
+          // document.getElementById("htmlOutput").innerHTML = document.getElementById("output").innerHTML;
+        });
+    }
+    $(document).ready(function(){
+
+      $('.htmlOutputContainer').click(function(){
+        event.stopPropagation();
+        $('.htmlOutputContainer').fadeOut('swing');
+      });
+      $('.htmlOutputbox').click(function(){
+        event.stopPropagation();
+      });
+    });
+    function showOutput(str) {
+      if($('#livecb'). prop("checked") == true){
+      if (str.length == 0) {
+        document.getElementById("output").innerHTML = "";
+        return;
+      } else {
+        $.post("https://kamla.com.np/app/mdtohtml/",
+          {
+            val: $('#input').val(),
+          },
+          function(data, status){
+            document.getElementById("output").innerHTML = data;
+            mermaid.init();
+            renderMathInElement(document.body);
+          });
+      }
+    }
+    }
+      function updateOutput(){
+        $.post("https://kamla.com.np/app/mdtohtml/",
+          {
+            val: $('#input').val(),
+          },
+          function(data, status){
+            document.getElementById("output").innerHTML = data;
+            mermaid.init();
+            renderMathInElement(document.body);
+          });
+      }
+      $(document).ready(function(){
+        updateOutput()
+      });
+    </script>
+
+    <div class="htmlOutputContainer">
+      <div class="htmlOutputbox">
+        <p>Html Code Output</p>
+        <button type="button" onclick="copyToClipboard('#htmlOutput')" name="button">Copy</button>
+        <textarea id="htmlOutput">
+        </textarea>
+      </div>
+    </div>
+
+    <div id="execute">
+      <input type="checkbox" id="livecb" >Live Update</input>
+    </div>
+    <button id="execute" onclick="clearinput()" type="button" name="button">Clear</button>
+    <button id="execute" onclick="updateOutput()" type="button" name="button">Run</button>
+    <button id="execute" onclick="converinput()" type="button" name="button">Conver To Html</button>
+
+    <div id="editor" >
+      <textarea id="input" onkeyup="showOutput(this.value)" class="devide left">
+# Example
+
+This file contains all the examples of how you can design a Markdown file.
+
+# Image
+
+This is how you can implement image in your markdown file
+
+```
+![image](https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG)
+```
+
+![image](https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG)
+
+
+## SmartyPants
+
+SmartyPants converts ASCII punctuation characters into "smart" typographic punctuation HTML entities. For example:
+
+|                |ASCII                          |HTML                         |
+|----------------|-------------------------------|-----------------------------|
+|Single backticks|`' Isn't this fun?'`            |'Is, not this fun?'            |
+|Quotes          |`"Isn't this fun?"`            |"Isn't this fun?"            |
+|Dashes          |`-- is en-dash, --- is em-dash`|-- is en-dash, --- is em-dash|
+
+
+## KaTeX
+
+You can render LaTeX mathematical expressions using [KaTeX](https://khan.github.io/KaTeX/):
+
+The *Gamma function* satisfying $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$ is via the Euler integral
+
+$$
+\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}dt\,.
+$$
+
+> You can find more information about **LaTeX** mathematical expressions [here](http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference).
+
+
+## UML diagrams
+
+You can render UML diagrams using [Mermaid](https://mermaidjs.github.io/). For example, this will produce a sequence diagram:
+
+```mermaid
+sequenceDiagram
+Alice ->> Bob: Hello Bob, how are you?
+Bob-->>John: How about you John?
+Bob--x Alice: I am good thanks!
+Bob-x John: I am good thanks!
+Note right of John: Bob thinks a long<br/>long time, so long<br/>that the text does<br/>not fit on a row.
+
+Bob-->Alice: Checking with John...
+Alice->John: Yes... John, how are you?
+```
+
+
+And this will produce a flow chart:
+
+```mermaid
+graph LR
+A[Square Rect] -- Link text --> B((Circle))
+A --> C(Round Rect)
+B --> D{Rhombus}
+C --> D
+```
+
+# Markdown
+A markdown example shows how to write a markdown file. This document integrates core syntax and extensions (GMF).
+
+* [Block Elements](#block-elements)
+  * [Paragraphs and Line Breaks](#paragraphs-and-line-breaks)
+  * [Headers](#headers)
+  * [Blockquotes](#blockquotes)
+  * [Lists](#lists)
+  * [Code Blocks](#code-blocks)
+  * [Horizontal Rules](#horizontal-rules)
+  * [Table](#table)
+* [Span Elements](#span-elements)
+  * [Links](#links)
+  * [Emphasis](#emphasis)
+  * [Code](#code)
+  * [Images](#images)
+  * [Strikethrough](#strikethrough)
+* [Miscellaneous](#miscellaneous)
+  * [Automatic Links](#automatic-links)
+  * [Backslash Escapes](#backslash-escapes)
+* [Inline HTML](#inline-html)
+
+## Block Elements
+### Paragraphs and Line Breaks
+#### Paragraphs
+HTML Tag: `<p>`
+
+One or more blank lines. (A blank line is a line containing nothing but **spaces** or **tabs** is considered blank.)
+
+Code:
+
+    This will be
+    inline.
+
+    This is the second paragraph.
+Preview:
+***
+This will be
+inline.
+
+This is the second paragraph.
+***
+#### Line Breaks
+HTML Tag: `<br />`
+
+End a line with **two or more spaces**.
+
+Code:
+
+    This will be not
+    inline.
+Preview:
+***
+This will be not
+inline.
+***
+
+### Headers
+Markdown supports two styles of headers, Setext and atx.
+#### See text
+HTML Tags: `<h1>`, `<h2>`
+
+“Underlined” using **equal signs (=)** as `<h1>` and **dashes (-)** as `<h2>` in any number.
+
+Code:
+
+    This is an H1
+    =============
+    This is an H2
+    -------------
+Preview:
+***
+This is an H1
+=============
+
+This is an H2
+-------------
+***
+#### atx
+HTML Tags: `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`
+
+Uses 1-6 **hash characters (#)** at the start of the line, corresponding to `<h1>` - `<h6>`.
+
+Code:
+
+    # This is an H1
+    ## This is an H2
+    ###### This is an H6
+Preview:
+***
+# This is an H1
+## This is an H2
+###### This is an H6
+***
+Optionally, you may “close” atx-style headers. The closing hashes **don’t need to match** the number of hashes used to open the header.
+
+Code:
+
+    # This is an H1 #
+    ## This is an H2 ##
+    ### This is an H3 ######
+Preview:
+***
+# This is an H1 #
+## This is an H2 ##
+### This is an H3 ######
+***
+
+### Blockquotes
+HTML Tag: `<blockquote>`
+
+Markdown uses email-style **>** characters for block quoting. It looks best if you hard wrap the text and put a > before every line.
+
+Code:
+
+    > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+    > consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+    > Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+    >
+    > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+    > id sem consectetuer libero luctus adipiscing.
+Preview:
+***
+> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+> consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+> Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+>
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+> id sem consectetuer libero luctus adipiscing.
+
+***
+Markdown allows you to be lazy and only put the > before the first line of a hard-wrapped paragraph.
+
+Code:
+
+    > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+    consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+    Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+
+    > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+    id sem consectetuer libero luctus adipiscing.
+Preview:
+***
+> This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+
+> Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+id sem consectetuer libero luctus adipiscing.
+
+***
+Blockquotes can be nested (i.e. a blockquote-in-a-blockquote) by adding additional levels of >.
+
+Code:
+
+    > This is the first level of quoting.
+    >
+    > > This is nested blockquote.
+    >
+    > Back to the first level.
+Preview:
+***
+> This is the first level of quoting.
+>
+> > This is nested blockquote.
+>
+> Back to the first level.
+
+***
+Blockquotes can contain other Markdown elements, including headers, lists, and code blocks.
+
+Code:
+
+    > ## This is a header.
+    >
+    > 1.   This is the first list item.
+    > 2.   This is the second list item.
+    >
+    > Here's some example code:
+    >
+    >     return shell_exec("echo $input | $markdown_script");
+Preview:
+***
+> ## This is a header.
+>
+> 1.   This is the first list item.
+> 2.   This is the second list item.
+>
+> Here's some example code:
+>
+>     return shell_exec("echo $input | $markdown_script");
+
+***
+
+### Lists
+Markdown supports ordered (numbered) and unordered (bulleted) lists.
+#### Unordered
+HTML Tag: `<ul>`
+
+Unordered lists use **asterisks (*)**, **pluses (+)**, and **hyphens (-)**.
+
+Code:
+
+    *   Red
+    *   Green
+    *   Blue
+Preview:
+***
+*   Red
+*   Green
+*   Blue
+
+***
+is equivalent to:
+
+Code:
+
+    +   Red
+    +   Green
+    +   Blue
+and:
+
+Code:
+
+    -   Red
+    -   Green
+    -   Blue
+#### Ordered
+HTML Tag: `<ol>`
+
+Ordered lists use numbers followed by periods:
+
+Code:
+
+    1.  Bird
+    2.  McHale
+    3.  Parish
+Preview:
+***
+1.  Bird
+2.  McHale
+3.  Parish
+
+***
+It’s possible to trigger an ordered list by accident, by writing something like this:
+
+Code:
+
+    1986. What a great season.
+Preview:
+***
+1986. What a great season.
+
+***
+You can **backslash-escape (\\)** the period:
+
+Code:
+
+    1986\. What a great season.
+Preview:
+***
+1986\. What a great season.
+
+***
+#### Indented
+
+##### Blockquote
+To put a blockquote within a list item, the blockquote’s > delimiters need to be indented:
+
+Code:
+
+    *   A list item with a blockquote:
+
+        > This is a blockquote
+        > inside a list item.
+Preview:
+***
+*   A list item with a blockquote:
+
+    > This is a blockquote
+    > inside a list item.
+
+***
+##### Code Block
+To put a code block within a list item, the code block needs to be indented twice — **8 spaces** or **two tabs**:
+
+Code:
+
+    *   A list item with a code block:
+
+            <code goes here>
+Preview:
+***
+*   A list item with a code block:
+
+        <code goes here>
+
+***
+##### Nested List
+Code:
+
+    * A
+      * A1
+      * A2
+    * B
+    * C
+Preview:
+***
+* A
+  * A1
+  * A2
+* B
+* C
+
+***
+### Code Blocks
+HTML Tag: `<pre>`
+
+Indent every line of the block by at least **4 spaces** or **1 tab**.
+
+Code:
+
+    This is a normal paragraph:
+
+        This is a code block.
+Preview:
+***
+This is a normal paragraph:
+
+    This is a code block.
+***
+A code block continues until it reaches a line that is not indented (or the end of the article).
+
+Within a code block, ***ampersands (&)*** and angle **brackets (< and >)** are automatically converted into HTML entities.
+
+Code:
+
+        <div class="footer">
+            © 2004 Foo Corporation
+        </div>
+Preview:
+***
+    <div class="footer">
+        © 2004 Foo Corporation
+    </div>
+***
+Following sections Fenced Code Blocks and Syntax Highlighting are extensions, you can use the other way to write the code block.
+#### Fenced Code Blocks
+Just wrap your code in ```` ``` ```` (as shown below) and you won't need to indent it by four spaces.
+
+Code:
+
+    Here's an example:
+
+    ```
+    function test() {
+      console.log("notice the blank line before this function?");
+    }
+    ```
+Preview:
+***
+Here's an example:
+
+```
+function test() {
+  console.log("notice the blank line before this function?");
+}
+```
+***
+#### Syntax Highlighting
+In your fenced block, add an optional language identifier and we'll run it through syntax highlighting ([Support Languages](https://github.com/github/linguist/blob/master/lib/linguist/languages.yml)).
+
+Code:
+
+    ```ruby
+    require 'redcarpet'
+    markdown = Redcarpet.new("Hello World!")
+    puts markdown.to_html
+    ```
+Preview:
+***
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
+***
+### Horizontal Rules
+HTML Tag: `<hr />`
+Places **three or more hyphens (-), asterisks (*), or underscores (_)** on a line by themselves. You may use spaces between the hyphens or asterisks.
+
+Code:
+
+    * * *
+    ***
+    *****
+    - - -
+    ---------------------------------------
+    ___
+Preview:
+***
+* * *
+***
+*****
+- - -
+---------------------------------------
+___
+***
+### Table
+HTML Tag: `<table>`
+
+It's an extension.
+
+Separates column by **pipe (|)** and header by **dashes (-)**, and uses **colon (:)** for alignment.
+
+The outer **pipes (|)** and alignment are optional. There are **3 delimiters** each cell at least for separating header.
+
+Code:
+```
+| Left | Center | Right |
+|:-----|:------:|------:|
+|aaa   |bbb     |ccc    |
+|ddd   |eee     |fff    |
+
+ A | B
+---|---
+123|456
+
+
+A |B
+--|--
+12|45
+```
+Preview:
+***
+| Left | Center | Right |
+|:-----|:------:|------:|
+|aaa   |bbb     |ccc    |
+|ddd   |eee     |fff    |
+
+ A | B
+---|---
+123|456
+
+A |B
+--|--
+12|45
+***
+## Span Elements
+### Links
+HTML Tag: `<a>`
+
+Markdown supports two styles of links: inline and reference.
+
+#### Inline
+Inline link format like this: `[Link Text](URL "title")`
+
+The title is optional.
+
+Code:
+
+    This is [an example](http://example.com/ "Title") inline link.
+
+    [This link](http://example.net/) has no title attribute.
+Preview:
+***
+This is [an example](http://example.com/ "Title") inline link.
+
+[This link](http://example.net/) has no title attribute.
+***
+If you’re referring to a local resource on the same server, you can use relative paths:
+
+Code:
+
+    See my [About](/about/) page for details.
+Preview:
+***
+See my [About](/about/) page for details.
+***
+#### Reference
+You could predefine link references. Format like this: `[id]: URL "Title"`
+
+The title is also optional. And then you refer the link, format like this: `[Link Text][id]`
+
+Code:
+
+    [id]: http://example.com/  "Optional Title Here"
+    This is [an example][id] reference-style link.
+Preview:
+***
+[id]: http://example.com/  "Optional Title Here"
+This is [an example][id] reference-style link.
+***
+That is:
+
+* Square brackets containing the link identifier (**not case sensitive**, optionally indented from the left margin using up to three spaces);
+* followed by a colon;
+* followed by one or more spaces (or tabs);
+* followed by the URL for the link;
+* The link URL may, optionally, be surrounded by angle brackets.
+* optionally followed by a title attribute for the link, enclosed in double or single quotes, or enclosed in parentheses.
+
+The following three link definitions are equivalent:
+
+Code:
+
+    [foo]: http://example.com/  "Optional Title Here"
+    [foo]: http://example.com/  'Optional Title Here'
+    [foo]: http://example.com/  (Optional Title Here)
+    [foo]: <http://example.com/>  "Optional Title Here"
+Uses an empty set of square brackets, the link text itself is used as the name.
+
+Code:
+
+    [Google]: http://google.com/
+    [Google][]
+Preview:
+***
+[Google]: http://google.com/
+[Google][]
+***
+### Emphasis
+HTML Tags: `<em>`, `<strong>`
+
+Markdown treats **asterisks (*)** and **underscores (_)** as indicators of emphasis. **One delimiter** will be  `<em>`; **double delimiters* will be `<strong>`.
+
+Code:
+
+    *single asterisks*
+
+    _single underscores_
+
+    **double asterisks**
+
+    __double underscores__
+Preview:
+***
+*single asterisks*
+
+_single underscores_
+
+**double asterisks**
+
+__double underscores__
+***
+But if you surround an * or _ with spaces, it’ll be treated as a literal asterisk or underscore.
+
+You can backslash escape it:
+
+Code:
+
+    \*this text is surrounded by literal asterisks\*
+Preview:
+***
+\*this text is surrounded by literal asterisks\*
+***
+### Code
+HTML Tag: `<code>`
+
+Wraps it with **backtick quotes (`)**.
+
+Code:
+
+    Use the `printf()` function.
+Preview:
+***
+Use the `printf()` function.
+***
+To include a literal backtick character within a code span, you can use **multiple backticks** as the opening and closing delimiters:
+
+Code:
+
+    ``There is a literal backtick (`) here.``
+Preview:
+***
+``There is a literal backtick (`) here.``
+***
+The backtick delimiters surrounding a code span may include spaces — one after the opening, one before the closing. This allows you to place literal backtick characters at the beginning or end of a code span:
+
+Code:
+
+    A single backtick in a code span: `` ` ``
+
+    A backtick-delimited string in a code span: `` `foo` ``
+Preview:
+***
+A single backtick in a code span: `` ` ``
+
+A backtick-delimited string in a code span: `` `foo` ``
+***
+### Images
+HTML Tag: `<img />`
+
+Markdown uses an image syntax that is intended to resemble the syntax for links, allowing for two styles: inline and reference.
+#### Inline
+
+Inline image syntax looks like this: `![Alt text](URL "Title")`
+
+The title is optional.
+
+Code:
+
+    ![Alt text](https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG)
+
+    ![Alt text](https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG "Optional title")
+Preview:
+***
+![Alt text](https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG)
+
+![Alt text](https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG "Optional title")
+***
+That is:
+
+* An exclamation mark: !;
+* followed by a set of square brackets, containing the alt attribute text for the image;
+* followed by a set of parentheses, containing the URL or path to the image, and an optional title attribute enclosed in double or single quotes.
+
+#### Reference
+Reference-style image syntax looks like this: `![Alt text][id]`
+
+Code:
+
+    [img id]: https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG  "Optional title attribute"
+    ![Alt text][img id]
+Preview:
+***
+[img id]: https://upload.wikimedia.org/wikipedia/commons/a/a8/TEIDE.JPG  "Optional title attribute"
+![Alt text][img id]
+***
+### Strikethrough
+HTML Tag: `<del>`
+
+It's an extension.
+
+GFM adds syntax to strikethrough text.
+
+Code:
+```
+~~Mistaken text.~~
+```
+Preview:
+***
+~~Mistaken text.~~
+***
+## Miscellaneous
+### Automatic Links
+Markdown supports a shortcut style for creating “automatic” links for URLs and email addresses: simply surround the URL or email address with angle brackets.
+
+Code:
+
+    <http://example.com/>
+
+    <address@example.com>
+Preview:
+***
+<http://example.com/>
+
+<address@example.com>
+***
+GFM will auto-link standard URLs.
+
+Code:
+```
+https://github.com/emn178/markdown
+```
+Preview:
+***
+https://github.com/emn178/markdown
+***
+
+### Backslash Escapes
+Markdown allows you to use backslash escapes to generate literal characters that would otherwise have special meaning in Markdown’s formatting syntax.
+
+Code:
+
+    \*literal asterisks\*
+Preview:
+***
+\*literal asterisks\*
+***
+Markdown provides backslash escapes for the following characters:
+
+Code:
+
+    \   backslash
+    `   backtick
+    *   asterisk
+    _   underscore
+    {}  curly braces
+    []  square brackets
+    ()  parentheses
+    #   hash mark
+    +   plus sign
+    -   minus sign (hyphen)
+    .   dot
+    !   exclamation mark
+
+## Inline HTML
+For any markup that is not covered by Markdown’s syntax, you simply use HTML itself. There’s no need to preface it or delimit it to indicate that you’re switching from Markdown to HTML; you just use the tags.
+
+Code:
+
+    This is a regular paragraph.
+
+    <table>
+        <tr>
+            <td>Foo</td>
+        </tr>
+    </table>
+
+    This is another regular paragraph.
+Preview:
+***
+This is a regular paragraph.
+
+<table>
+    <tr>
+        <td>Foo</td>
+    </tr>
+</table>
+
+This is another regular paragraph.
+***
+Note that Markdown formatting syntax is **not processed within block-level HTML tags**.
+
+Unlike block-level HTML tags, Markdown syntax is **processed within span-level tags**.
+
+Code:
+
+    <span>**Work**</span>
+
+    <div>
+        **No Work**
+    </div>
+Preview:
+***
+<span>**Work**</span>
+
+<div>
+  **No Work**
+</div>
+***
+
+      </textarea>
+      <div class="devide right" id="output">
+      </div>
+    </div>
+
+  </body>
+</html>
