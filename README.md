@@ -24,7 +24,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](https:
 [![Icon](https://img.shields.io/badge/Github-lightgrey)](https://github.com/abdheshnayak) [![Icon](https://img.shields.io/badge/LinkedIn-blue)](https://www.linkedin.com/in/abdhesh-nayak/)
 
 ## Render MD To HTML
-This is hint, how you can get your HTML code from MarkDown code.
+This is hint, how you can get your HTML code from MarkDown code using JQuery(Ajax Call).
 ```
 $.post("https://pageviewcounter.000webhostapp.com/mdtohtml/",
         {
