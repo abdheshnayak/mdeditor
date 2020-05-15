@@ -5,7 +5,7 @@ This is a editor and designer for the markdown file and also it converts markdow
 
 [
 ![viewsCount](https://img.shields.io/badge/-Open%20Editor-blueviolet)
-](https://abdheshnayak.github.io/mdeditor/)
+](https://kamla.com.np/app/mdeditor/)
 
 ## Built With
 * **PHP**
