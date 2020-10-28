@@ -1,0 +1,141 @@
+.devide{
+  position: relative;
+  width: 46%;
+  min-width: 23em;
+  height: 95%;
+  margin: 0;
+  padding:2%;
+  border: 0.05em solid pink;
+  box-shadow:  0.051em 0.051em 0.051em 0.051em pink;
+}
+#editor .left{
+  font-size: 1em;
+  left: 0;
+  /* background: rgba(255,0,255,0.5); */
+}
+#editor .right{
+  overflow-y: scroll;
+  right: 0;
+  /* background: rgba(255,255,0,0.5); */
+}
+#editor{
+  position: relative;
+  top: .2em;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background: #f8f9fa;
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  height: calc(99vh - 4em);
+  margin: 0em;
+  /* background: rgba(0,255,255,0.5); */
+}
+#execute{
+  text-decoration: none;
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  border-radius: 0.2em;
+  font-size: 0.75em;
+  box-shadow:  0.051em 0.051em 0.051em 0.051em pink;
+  margin: 0.1em;
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  color: white;
+  outline: none;
+  border: none;
+  background: #0a183d;
+}
+#livecb{
+  display: none;
+}
+#livecb:checked ~ .livecblabel{
+  background: #0a183d;
+}
+.livecblabel{
+  position: relative;
+  display: block;
+  cursor: pointer;
+  background: grey;
+}
+.htmlOutputContainer{
+  display: none;
+  z-index: 4;
+  margin-top: -2em;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(100,100,100,0.6);
+}
+.htmlOutputbox{
+  box-shadow: 0.1em 0.1em 0.1em 0.1em grey;
+  border-radius: 0.3em;
+  background: #0a183d;
+  display: block;
+  left: 50%;
+  top: 50%;
+  margin-top: -14em;
+  margin-left: -10em;
+  position: relative;
+  width: 20em;
+  height: 24em;
+}
+.htmlOutputbox p{
+  display: inline-flex;
+  /* position: absolute; */
+  padding: 0.8em;
+  padding-top: 0em;
+  margin-top: 0.8em;
+  color: white;
+  font-size: 1.2em;
+}
+.htmlOutputbox span{
+  position: relative;
+  display: inline-flex;
+  /* margin-left: em; */
+  padding: 0.3em;
+  margin: 0.2em;
+  cursor: pointer;
+  background:white;
+  box-shadow: 0.05em 0.05em 0.05em 0.05em brown;
+  border-radius: 0.3em;
+}
+#tagsBar{
+  background: #f8f9fa;
+  position: fixed;
+  z-index: 5;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#htmlOutput{
+  position: absolute;
+  display: inline-block;
+  width: 18em;
+  box-shadow: 0.1em 0.1em 0.1em 0.1em white;
+  border: none;
+  overflow-y: scroll;
+  border-radius: 0.3em;
+  height: 20em;
+  left: 50%;
+  top: 50%;
+  margin-top: -9em;
+  margin-left: -9.1em;
+}
+#menuItem{
+  display:none;
+  padding:0.5em;
+  text-align:center;
+  display: block;
+}
+#scRightInfo{
+  display:none;
+  padding:0.5em;
+  text-align:center;
+}
+@media only screen and (max-width: 35em){
+  #scRightInfo{
+    display: block;
+  }
+}
