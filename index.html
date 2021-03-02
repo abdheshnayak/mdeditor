@@ -1,177 +1,208 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>MD Editor | Abdhesh Nayak</title>
-    <meta name=viewport content="width=device-width" scale=1.0>
-    <link rel="stylesheet" href="https://proicons.netlify.app/css/icons.min.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv=content-type content="text/html; charset=utf-8">
-    <link rel=icon href="https://kamla.com.np/src/logo.png" type="image/icon type">
+    <meta name="viewport" content="width=device-width" scale="1.0" />
+    <link
+      rel="stylesheet"
+      href="https://proicons.netlify.app/css/icons.min.css"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link
+      rel="icon"
+      href="https://progman.in/logo.png"
+      type="image/icon type"
+    />
 
-    <link rel="stylesheet"
-          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/highlight.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/styles/default.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.1/highlight.min.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="./katex/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="./katex/katex.min.css"
+      integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq"
+      crossorigin="anonymous"
+    />
 
     <!-- The loading of KaTeX is deferred to speed up page rendering -->
 
-    <script defer src="./katex/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script
+      defer
+      src="./katex/katex.min.js"
+      integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- To automatically render math in text elements, include the auto-render extension: -->
 
-    <script defer src="./katex/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);"></script>
+    <script
+      defer
+      src="./katex/contrib/auto-render.min.js"
+      integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);"
+    ></script>
 
     <script src="js/marked.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.1/mermaid.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.5.1/mermaid.js"
+    ></script>
     <!-- <link rel="stylesheet" href="https://kamla.com.np/css/readme.css" /> -->
 
-    <link rel="stylesheet" href="css/normalize.css">
-  	<link rel="stylesheet" href="css/loader.css">
-  	<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/loader.css" />
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 
     <link rel="stylesheet" href="https://stackedit.io/style.css" />
-    <link rel="stylesheet" href="https://kamla.com.np/css/mystyle.css" />
+    <!-- <link rel="stylesheet" href="https://staic.progman.in/css/mystyle.css" /> -->
     <link rel="stylesheet" href="css/bundle.css?ID=2" />
     <link rel="stylesheet" href="css/nav.css?ID=2" />
-    <script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="abdheshnayak" data-description="Support me on Buy me a coffee!" data-message="" data-color="#FF813F" data-position="right" data-x_margin="9" data-y_margin="9"></script>
-
+    <script
+      data-name="BMC-Widget"
+      src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+      data-id="abdheshnayak"
+      data-description="Support me on Buy me a coffee!"
+      data-message=""
+      data-color="#FF813F"
+      data-position="right"
+      data-x_margin="9"
+      data-y_margin="9"
+    ></script>
   </head>
   <body>
-
     <!-- body Contents -->
 
-<script type="text/javascript">
-$(document).ready(function(){
-  Loadmain();
+    <script type="text/javascript">
+      $(document).ready(function () {
+        Loadmain();
 
-  $('body').addClass('loaded');
+        $("body").addClass("loaded");
 
-  $('.htmlOutputContainer').click(function(){
-    event.stopPropagation();
-    $('.htmlOutputContainer').fadeOut('swing');
-  });
-  $('.htmlOutputbox').click(function(){
-    event.stopPropagation();
-  });
-});
-
-</script>
+        $(".htmlOutputContainer").click(function () {
+          event.stopPropagation();
+          $(".htmlOutputContainer").fadeOut("swing");
+        });
+        $(".htmlOutputbox").click(function () {
+          event.stopPropagation();
+        });
+      });
+    </script>
     <div id="loader-wrapper">
       <div id="loader"></div>
 
       <div class="loader-section section-left"></div>
-            <div class="loader-section section-right"></div>
-
+      <div class="loader-section section-right"></div>
     </div>
 
     <div class="htmlOutputContainer">
       <div class="htmlOutputbox">
         <p>Html Code Output</p>
-        <span type="span" onclick="copyToClipboard('#htmlOutput')" name="span">Copy</span>
-        <textarea id="htmlOutput">
-        </textarea>
+        <span type="span" onclick="copyToClipboard('#htmlOutput')" name="span"
+          >Copy</span
+        >
+        <textarea id="htmlOutput"> </textarea>
       </div>
     </div>
 
     <!-- header secetion -->
     <header>
-        <div class="brand-outer">
-            <div class="brand">
-                <!-- <div class="logo"></div> -->
-                <h1>MD Editor</h1>
-            </div>
-            <div id="menuButton" class="menuButton">
-                <i class="fas fa-bars"></i>
-            </div>
-            <div id="closeButton" class="closeButton">
-                <i class="fas fa-times"></i>
-            </div>
+      <div class="brand-outer">
+        <div class="brand">
+          <!-- <div class="logo"></div> -->
+          <h1>MD Editor</h1>
         </div>
-        <div id="buttons" class="buttons">
-            <ul>
-                <li class="animate__animated animate__fadeInLeft">
-                  <span>
-                    <input checked="true" type="checkbox" id="livecb" />
-                    <label for="livecb" class="livecblabel">Live Run</label>
-                  </span>
-                </li>
-                <li class="animate__animated animate__fadeInLeft">
-                  <span onclick="runupdateOutput()" >Run</span>
-                </li>
-                <li class="animate__animated animate__fadeInLeft">
-                  <span onclick="clearinput()" >Clear</span>
-               </li>
-               <li class="animate__animated animate__fadeInLeft">
-                 <span onclick="convertinput()">Get Html</span>
-                </li>
-                <li class="animate__animated animate__fadeInLeft">
-                  <span onclick="LoadDiagrams()">Load Diagrams</span>
-                </li>
-            </ul>
+        <div id="menuButton" class="menuButton">
+          <i class="fas fa-bars"></i>
         </div>
+        <div id="closeButton" class="closeButton">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      <div id="buttons" class="buttons">
+        <ul>
+          <li class="animate__animated animate__fadeInLeft">
+            <span>
+              <input checked="true" type="checkbox" id="livecb" />
+              <label for="livecb" class="livecblabel">Live Run</label>
+            </span>
+          </li>
+          <li class="animate__animated animate__fadeInLeft">
+            <span onclick="runupdateOutput()">Run</span>
+          </li>
+          <li class="animate__animated animate__fadeInLeft">
+            <span onclick="clearinput()">Clear</span>
+          </li>
+          <li class="animate__animated animate__fadeInLeft">
+            <span onclick="convertinput()">Get Html</span>
+          </li>
+          <li class="animate__animated animate__fadeInLeft">
+            <span onclick="LoadDiagrams()">Load Diagrams</span>
+          </li>
+        </ul>
+      </div>
     </header>
 
-    <div id="editor" >
+    <div id="editor">
       <!-- <textarea id="input" spellcheck="true" oninput="showOutput(this.value)" class="devide left">
 
       </textarea> -->
-      <div id="input" class="devide left">
-
-      </div>
-      <div class="devide right" id="output">
-      </div>
+      <div id="input" class="devide left"></div>
+      <div class="devide right" id="output"></div>
     </div>
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
-    <script src="ace-builds/src-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script
+      src="ace-builds/src-min/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
     <script defer="" src="ace-builds/src-min/ext-language_tools.js"></script>
 
     <script type="text/javascript">
-
       var editor = ace.edit("input");
       editor.setTheme("ace/theme/monokai");
-      document.getElementById('editor').style.fontSize='14px';
+      document.getElementById("editor").style.fontSize = "14px";
       editor.session.setMode("ace/mode/markdown");
 
       $(document).ready(function () {
         ace.require("ace/ext/language_tools");
-          editor.setOptions({
-              enableBasicAutocompletion: true,
-              enableSnippets: true,
-              enableLiveAutocompletion: true
-          });
+        editor.setOptions({
+          enableBasicAutocompletion: true,
+          enableSnippets: true,
+          enableLiveAutocompletion: true,
         });
+      });
 
-        editor.getSession().on('change', function() {
-          if($('#livecb'). prop("checked") == true){
-              if (editor.session.getValue() == 0) {
-                document.getElementById("output").innerHTML = "";
-                return;
-              } else {
-                updateOutput();
-              }
-            }
-        });
+      editor.getSession().on("change", function () {
+        if ($("#livecb").prop("checked") == true) {
+          if (editor.session.getValue() == 0) {
+            document.getElementById("output").innerHTML = "";
+            return;
+          } else {
+            updateOutput();
+          }
+        }
+      });
 
-        $("#menuButton").click(function(e){
-            $(this).css("display","none");
-            $("#closeButton").fadeIn("fast");
-            $("#buttons").show("fast");
-        });
-        $("#closeButton").click(function(e){
-            $(this).css("display","none");
-            $("#menuButton").fadeIn("fast");
-            $("#buttons").hide("fast");
-        })
-
-
+      $("#menuButton").click(function (e) {
+        $(this).css("display", "none");
+        $("#closeButton").fadeIn("fast");
+        $("#buttons").show("fast");
+      });
+      $("#closeButton").click(function (e) {
+        $(this).css("display", "none");
+        $("#menuButton").fadeIn("fast");
+        $("#buttons").hide("fast");
+      });
     </script>
     <script src="js/bundle.js?ID=2"></script>
-
   </body>
 </html>
