@@ -59,21 +59,27 @@ function showOutput(str) {
 
 function LoadDiagrams() {
   $("body").removeClass("loaded");
-  $.post("src/examples/diagrams.txt", function (data) {
-    // $("textarea#input").val(data);
-    editor.session.setValue(data);
-    updateOutput();
-    $("body").addClass("loaded");
-  });
+  $.post(
+    "https://raw.githubusercontent.com/abdheshnayak/mdeditor/master/src/examples/diagrams.txt",
+    function (data) {
+      // $("textarea#input").val(data);
+      editor.session.setValue(data);
+      updateOutput();
+      $("body").addClass("loaded");
+    }
+  );
 }
 function Loadmain() {
   $("body").removeClass("loaded");
-  $.post("src/examples/main.txt", function (data) {
-    editor.session.setValue(data);
-    // $("textarea#input").val(data);
-    updateOutput();
-    $("body").addClass("loaded");
-  });
+  $.post(
+    "https://raw.githubusercontent.com/abdheshnayak/mdeditor/master/src/examples/main.txt",
+    function (data) {
+      editor.session.setValue(data);
+      // $("textarea#input").val(data);
+      updateOutput();
+      $("body").addClass("loaded");
+    }
+  );
 }
 
 function runupdateOutput() {
